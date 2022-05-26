@@ -46,37 +46,27 @@ document.querySelector("#message1").textContent = message1;
 document.querySelector("#message2").textContent = message2;
 
 
-const output = (pokemon) => {
-    pokemon.forEach((pokemon) => {
+const output = (pokemons) => {
+    pokemons.forEach((sprites) => {
         let article = document.createElement("article");
 
-        let name = document.createElement("h3")
-        name.textContent = pokemon.abilities;
+        let img1 = document.createElement("img");
+        img1.setAttribute("src", sprites.front_default);
 
-        let abilities = document.createElement("h4")
-        abilities.textContent = pokemon.abilities;
-
-        let forms = document.createElement("h5")
-        forms.textContent = pokemon.forms;
-
-        let img = document.createElement("img")
-        img.setAttribute("src", pokemon.front_default);
-        img.setAttribute("alt", pokemon.name);
+        let img2 = document.createElement("img");
+        img2.setAttribute("src", sprites.back_default);
     
-        article.appendChild(name);
-        article.appendChild(abilities);
-        article.appendChild(forms);
-        article.appendChild(img);
+        article.appendChild(img1);
+        article.appendChild(img2);
 
-        document.querySelector("#pokemon").appendChild(article);
-        
+        document.querySelector("#pokemons").appendChild(article);
     });
 };
 
 
 const getPokemon = async () => {
     const respone = await fetch(
-        "https://pokeapi.co/api/v2/pokemon/ditto"
+        "https://pokeapi.co/api/v2/pokemon/pikachu"
     );
     pokemonList = await respone.json();
     output(pokemonList);
@@ -85,5 +75,13 @@ getPokemon();
 
 
 const reset = () => {
-    document.querySelector("#pokemon").innerHTML = "";
+    document.querySelector("#pokemons").innerHTML = "";
 };
+
+// const pokemon1 = {
+//     pokemonName: "Eevee",
+//     pokemonType: "Normal",
+//     picture: "insert png here"
+// };
+
+// document.querySelector('#eevee').textContent = pokemon1;
