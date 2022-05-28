@@ -44,3 +44,51 @@ const reset = () => {
     document.querySelector("#pikachu").innerHTML = "";
 };
 
+
+const sortBy = () => {
+    reset();
+
+    let filter = document.querySelector("#sortBy").value;
+
+    switch (filter) {
+        case "Default":
+            output(
+                pokemonList.sort((pikachu1, pikachu2) => {
+                    let pikachuSprite1 = pikachu1.img1 + pikachu1.img2;
+                    let pikachuSprite2 = pikachu2.img3 + pikachu2.img4;
+                    pikachuSprite1 > pikachuSprite2;
+                    if (pikachuSprite1 < pikachuSprite2) return -1;
+                    else if (pikachuSprite1 > pikachuSprite2) return 1;
+                    else return 0;
+                })
+            );
+            break;
+
+        case "Shiny":
+            output(
+                pokemonList.sort((pikachu1, pikachu2) => {
+                    let pikachuSprite1 = pikachu1.img1 + pikachu1.img2;
+                    let pikachuSprite2 = pikachu2.img3 + pikachu2.img4;
+                    pikachuSprite1 < pikachuSprite2;
+                    if (pikachuSprite1 > pikachuSprite2) return -1;
+                    else if (pikachuSprite1 < pikachuSprite2) return 1;
+                    else return 0;
+                }) 
+            );
+            break;
+        default:
+            output(
+                pokemonList.sort((pikachu1, pikachu2) => 
+                    pikachu1 > pikachu2
+                        ? 1
+                        : pikachu2 >
+                          pikachu1
+                        ? -1
+                        : 0
+                )
+            );
+            break;
+    }
+};
+
+document.querySelector("#sortBy").addEventListener("change", sortBy);

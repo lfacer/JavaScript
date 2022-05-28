@@ -129,7 +129,7 @@ const reset = () => {
 const sortBy = () => {
     reset();
 
-    let filter = documnet.querySelector("#sortBy").value;
+    let filter = document.querySelector("#sortBy").value;
 
     switch (filter) {
         case "templeNameAscending":
