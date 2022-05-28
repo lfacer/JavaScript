@@ -1,7 +1,6 @@
 // Pikachu
 const output = (pikachu) => {
     let articleDefault = document.createElement("article");
-
     let articleShiny = document.createElement("article");
     
     let pikachuName = document.createElement("h3");
@@ -37,7 +36,6 @@ const getPikachu = async () => {
     pokemonList = await respone.json();
     output(pokemonList);
 };
-getPikachu();
 
 
 const reset = () => {
@@ -45,50 +43,30 @@ const reset = () => {
 };
 
 
-const sortBy = () => {
-    reset();
+reset();
+let filter = document.querySelector("#getPikachu").value;
 
-    let filter = document.querySelector("#sortBy").value;
+    if (respone.ok) {
+        let pikachu = await respone.json();
 
-    switch (filter) {
-        case "Default":
+        reset();
+        let filter = document.querySelector("#getPikachu").value;
+        
+        switch(filter) {
+            case "Default":
             output(
-                pokemonList.sort((pikachu1, pikachu2) => {
-                    let pikachuSprite1 = pikachu1.img1 + pikachu1.img2;
-                    let pikachuSprite2 = pikachu2.img3 + pikachu2.img4;
-                    pikachuSprite1 > pikachuSprite2;
-                    if (pikachuSprite1 < pikachuSprite2) return -1;
-                    else if (pikachuSprite1 > pikachuSprite2) return 1;
-                    else return 0;
-                })
-            );
+                document.querySelector("#pikachu").appendChild(articleDefault),
+                getPikachu()
+                ); 
             break;
 
-        case "Shiny":
+            case "Shiny":
             output(
-                pokemonList.sort((pikachu1, pikachu2) => {
-                    let pikachuSprite1 = pikachu1.img1 + pikachu1.img2;
-                    let pikachuSprite2 = pikachu2.img3 + pikachu2.img4;
-                    pikachuSprite1 < pikachuSprite2;
-                    if (pikachuSprite1 > pikachuSprite2) return -1;
-                    else if (pikachuSprite1 < pikachuSprite2) return 1;
-                    else return 0;
-                }) 
+                document.querySelector("#pikachu").appendChild(articleShiny),
+                getPikachu()
             );
-            break;
-        default:
-            output(
-                pokemonList.sort((pikachu1, pikachu2) => 
-                    pikachu1 > pikachu2
-                        ? 1
-                        : pikachu2 >
-                          pikachu1
-                        ? -1
-                        : 0
-                )
-            );
-            break;
+            break;            
+        }
     }
-};
 
-document.querySelector("#sortBy").addEventListener("change", sortBy);
+document.querySelector("#getPikachu").addEventListener("change", getPikachu);
