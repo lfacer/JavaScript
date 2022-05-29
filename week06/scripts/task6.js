@@ -1,8 +1,7 @@
 // Pikachu
-const output = (pikachu) => {
+const outputdefault = (pikachu) => {
     let articleDefault = document.createElement("article");
-    let articleShiny = document.createElement("article");
-    
+
     let pikachuName = document.createElement("h3");
     pikachuName.textContent = pikachu.species.name;
 
@@ -12,61 +11,60 @@ const output = (pikachu) => {
     let img2 = document.createElement("img");
     img2.setAttribute("src", pikachu.sprites.back_default);
 
+    articleDefault.appendChild(pikachuName);
+    articleDefault.appendChild(img1);
+    articleDefault.appendChild(img2);
+
+    document.querySelector("#pikachu").appendChild(articleDefault);
+};
+
+const outputshiny = (pikachu) => {
+    let articleShiny = document.createElement("article");
+
+    let pikachuName = document.createElement("h3");
+    pikachuName.textContent = pikachu.species.name;
+
     let img3 = document.createElement("img");
     img3.setAttribute("src", pikachu.sprites.front_shiny);
 
     let img4 = document.createElement("img");
     img4.setAttribute("src", pikachu.sprites.back_shiny);
-    
-    articleDefault.appendChild(pikachuName);
-    articleDefault.appendChild(img1);
-    articleDefault.appendChild(img2);
+
+    articleShiny.appendChild(pikachuName);
     articleShiny.appendChild(img3);
     articleShiny.appendChild(img4);
 
-    document.querySelector("#pikachu").appendChild(articleDefault);
     document.querySelector("#pikachu").appendChild(articleShiny);
-};
+}
 
 
 const getPikachu = async () => {
     const respone = await fetch(
         "https://pokeapi.co/api/v2/pokemon/pikachu"
     );
-    pokemonList = await respone.json();
-    output(pokemonList);
-};
-
-
-const reset = () => {
-    document.querySelector("#pikachu").innerHTML = "";
-};
-
-
-reset();
-let filter = document.querySelector("#getPikachu").value;
-
     if (respone.ok) {
         let pikachu = await respone.json();
 
         reset();
-        let filter = document.querySelector("#getPikachu").value;
-        
-        switch(filter) {
+
+        // console.log(pikachu)
+
+        let filter = document.querySelector("#selectPikachu").value;
+        switch (filter) {
             case "Default":
-            output(
-                document.querySelector("#pikachu").appendChild(articleDefault),
-                getPikachu()
-                ); 
-            break;
+                outputdefault(pikachu);
+                break;
 
             case "Shiny":
-            output(
-                document.querySelector("#pikachu").appendChild(articleShiny),
-                getPikachu()
-            );
-            break;            
+                outputshiny(pikachu);
+                break;
         }
-    }
+    };
+}
 
-document.querySelector("#getPikachu").addEventListener("change", getPikachu);
+
+    const reset = () => {
+        document.querySelector("#pikachu").innerHTML = "";
+    };
+
+    document.querySelector("#selectPikachu").addEventListener("change", getPikachu);

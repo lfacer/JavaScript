@@ -36,14 +36,21 @@
         <section>
             <h2>Pokemon</h2>
             <p>
+                <label for="poke">Select Pokemon:</label>
+                <input id="poke" type="text">
+            </p>
+            <p>
                 Sort by: 
-                <select id="selectPikachu">
+                <select id="selectView">
                     <option value="" disabled selected>Select a View ...</option>
                     <option value="Default">Default</option>
                     <option value="Shiny">Shiny</option>
                 </select>
             </p>
-            <div id="pikachu">
+            <p>
+                <button id="getPokemon">Get Information</button>
+            </p>
+            <div id="output">
             </div>
         </section>
     </main>
@@ -51,7 +58,7 @@
         &copy;<span id="year"></span> | Personal JavaScript Project | Lesson 6
     </footer>
     <script src="scripts/main.js"></script>
-    <script src="scripts/task6.js"></script>
+    <script src="scripts/task6testing.js"></script>
 </body>
 
 </html>

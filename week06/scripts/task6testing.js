@@ -1,110 +1,71 @@
-// Pikachu
-const output = (pikachu) => {
-  let article = document.createElement("article");
-  
+// output build
+const outputDefault = (pikachu) => {
+  let articleDefault = document.createElement("article");
+
   let pikachuName = document.createElement("h3");
   pikachuName.textContent = pikachu.species.name;
 
   let img1 = document.createElement("img");
   img1.setAttribute("src", pikachu.sprites.front_default);
-  
-  article.appendChild(pikachuName);
-  article.appendChild(img1);
 
-  document.querySelector("#pikachu").appendChild(article);
+  let img2 = document.createElement("img");
+  img2.setAttribute("src", pikachu.sprites.back_default);
+
+  articleDefault.appendChild(pikachuName);
+  articleDefault.appendChild(img1);
+  articleDefault.appendChild(img2);
+
+  document.querySelector("#output").appendChild(articleDefault);
 };
 
-const getPikachu = async () => {
-  const respone = await fetch(
-      "https://pokeapi.co/api/v2/pokemon/pikachu"
-  );
-  pokemonList = await respone.json();
-  output(pokemonList);
-};
-getPikachu();
+const outputShiny = (pikachu) => {
+  let articleShiny = document.createElement("article");
+
+  let pikachuName = document.createElement("h3");
+  pikachuName.textContent = pikachu.species.name;
+
+  let img3 = document.createElement("img");
+  img3.setAttribute("src", pikachu.sprites.front_shiny);
+
+  let img4 = document.createElement("img");
+  img4.setAttribute("src", pikachu.sprites.back_shiny);
+
+  articleShiny.appendChild(pikachuName);
+  articleShiny.appendChild(img3);
+  articleShiny.appendChild(img4);
+
+  document.querySelector("#output").appendChild(articleShiny);
+}
+
+
+async function getPokemon() {
+  let poke = document.querySelector("#poke").value;
+  if (poke != null) {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${poke}`);
+    if (response.ok) {
+      let data = await response.json();
+      reset();
+      // console.log(pikachu)
+      let filter = document.querySelector("#selectView").value;
+      switch (filter) {
+        case "Default":
+          outputDefault(data);
+          break;
+        case "Shiny":
+          outputShiny(data);
+          break;
+        default:
+          outputDefault(data)
+          break;
+      }
+    };
+  }
+}
+
 
 const reset = () => {
-  document.querySelector("#pikachu").innerHTML = "";
+  document.querySelector("#output").innerHTML = "";
 };
 
+document.querySelector("#getPokemon").addEventListener("click", getPokemon);
 
-// Ditto
-const output2 = (ditto) => {
-  let article = document.createElement("article");
-  
-  let dittoName = document.createElement("h3");
-  dittoName.textContent = ditto.species.name;
-
-  let img1 = document.createElement("img");
-  img1.setAttribute("src", ditto.sprites.front_default);
-  
-  article.appendChild(dittoName);
-  article.appendChild(img1);
-
-  document.querySelector("#ditto").appendChild(article);
-};
-
-const getDitto = async () => {
-  const respone = await fetch(
-      "https://pokeapi.co/api/v2/pokemon/ditto"
-  );
-  pokemonList = await respone.json();
-  output(pokemonList);
-};
-getDitto();
-
-
-const reset2 = () => {
-  document.querySelector("#ditto").innerHTML = "";
-};
-
-let pokemon = pikachu + ditto;
-
-document.querySelector("pokemon").appendChild(artile)
-
-// Sort by
-const sortBy = () => {
-  reset();
-
-  let filter = document.querySelector("#sortBy").value;
-
-  switch (filter) {
-      case "Pikachu":
-          output(
-              pokemonList.sort((pikachu, ditto) => {
-                  let pikachuName = pikachu.pikachuSprites.toLowerCase();
-                  let dittoName = ditto.dittoSprites.toLowerCase();
-                  if (pikachuName < dittoName) return -1;
-                  else if (pikachuName > dittoName) return 1;
-                  else return 0;
-              })
-          );
-          break;
-
-      case "Ditto":
-          output(
-            pokemonList.sort((pikachu, ditto) => {
-              let pikachuName = pikachu.pikachuSprites.toLowerCase();
-              let dittoName = ditto.dittoSprites.toLowerCase();
-              if (pikachuName > dittoName) return -1;
-              else if (pikachuName < dittoName) return 1;
-              else return 0;
-              }) 
-          );
-          break;
-      default:
-          output(
-              pokemonList.sort((pikachu, ditto) => 
-                  pikachu.pikachuName.toLowerCase() > ditto.dittoName.toLowerCase()
-                      ? 1
-                      : ditto.dittoName.toLowerCase() >
-                        pikachu.pikachuName.toLowerCase()
-                      ? -1
-                      : 0
-              )
-          );
-          break;
-  }
-};
-
-document.querySelector("#sortBy").addEventListener("change", sortBy);
