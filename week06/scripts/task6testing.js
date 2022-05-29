@@ -1,36 +1,36 @@
 // output build
-const outputDefault = (pikachu) => {
+const outputDefault = (output) => {
   let articleDefault = document.createElement("article");
 
-  let pikachuName = document.createElement("h3");
-  pikachuName.textContent = pikachu.species.name;
+  let outputName = document.createElement("h3");
+  outputName.textContent = output.species.name;
 
   let img1 = document.createElement("img");
-  img1.setAttribute("src", pikachu.sprites.front_default);
+  img1.setAttribute("src", output.sprites.front_default);
 
   let img2 = document.createElement("img");
-  img2.setAttribute("src", pikachu.sprites.back_default);
+  img2.setAttribute("src", output.sprites.back_default);
 
-  articleDefault.appendChild(pikachuName);
+  articleDefault.appendChild(outputName);
   articleDefault.appendChild(img1);
   articleDefault.appendChild(img2);
 
   document.querySelector("#output").appendChild(articleDefault);
 };
 
-const outputShiny = (pikachu) => {
+const outputShiny = (output) => {
   let articleShiny = document.createElement("article");
 
-  let pikachuName = document.createElement("h3");
-  pikachuName.textContent = pikachu.species.name;
+  let outputName = document.createElement("h3");
+  outputName.textContent = output.species.name;
 
   let img3 = document.createElement("img");
-  img3.setAttribute("src", pikachu.sprites.front_shiny);
+  img3.setAttribute("src", output.sprites.front_shiny);
 
   let img4 = document.createElement("img");
-  img4.setAttribute("src", pikachu.sprites.back_shiny);
+  img4.setAttribute("src", output.sprites.back_shiny);
 
-  articleShiny.appendChild(pikachuName);
+  articleShiny.appendChild(outputName);
   articleShiny.appendChild(img3);
   articleShiny.appendChild(img4);
 
@@ -45,7 +45,7 @@ async function getPokemon() {
     if (response.ok) {
       let data = await response.json();
       reset();
-      // console.log(pikachu)
+      // console.log(output)
       let filter = document.querySelector("#selectView").value;
       switch (filter) {
         case "Default":
